@@ -19,6 +19,7 @@
 #include "ns3/internet-module.h"
 #include "ns3/point-to-point-module.h"
 #include "ns3/applications-module.h"
+#include "ns3/netanim-module.h"
 
 using namespace ns3;
 
@@ -90,6 +91,12 @@ main (int argc, char *argv[])
   ApplicationContainer clientApps2 = echoClient2.Install (nodes2.Get (1));
   clientApps2.Start (Seconds (2.0));
   clientApps2.Stop (Seconds (10.0));
+
+  AnimationInterface anim("anim1.xml");
+  anim.SetConstantPosition(nodes1.Get(0),1.0,2.0);
+  anim.SetConstantPosition(nodes1.Get(1),34.5,3.0);
+  anim.SetConstantPosition(nodes2.Get(1),69.5,4.0);
+  anim.EnablePacketMetadata(true);
 
   Simulator::Run ();
   Simulator::Destroy ();
